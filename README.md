@@ -127,6 +127,41 @@ sistema-inventario-completo/
 - Movimientos realizados dentro de transacciones MySQL.
 - Baja lógica de productos para conservar su historial.
 - Alertas automáticas cuando la existencia es menor o igual al stock mínimo.
+## Ejecución con Docker
+
+Requisitos: Docker Desktop.
+
+```bash
+docker compose up --build
+```
+
+La aplicación queda disponible en http://localhost:8080
+
+Para detenerla:
+
+```bash
+docker compose down
+```
+
+## Construcción manual de la imagen
+
+```bash
+docker build -t inventario-web:1.0 .
+docker run -d -p 8080:80 --name inventario-web inventario-web:1.0
+```
+
+## Pipeline de integración continua (Jenkins)
+
+El archivo `Jenkinsfile` en la raíz define estas etapas:
+
+1. **Checkout**: descarga el código desde GitHub.
+2. **Pruebas**: ejecuta las pruebas de la aplicación.
+3. **Build**: construye la imagen Docker con el `Dockerfile`.
+4. **Run**: levanta el contenedor y verifica que la app inicie.
+
+## Tecnologías DevOps
+
+GitHub (control de versiones), Docker (contenerización) y Jenkins (integración continua).
 
 ## Comandos para subirlo a GitHub
 
